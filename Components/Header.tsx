@@ -17,6 +17,11 @@ export default function Navbar(){
                 Resume
             </Link>
             </li>
+            <li>
+            <a href="mailto:tpg3@njit.edu">
+                <button>Contact Me</button>
+            </a>
+            </li>
           </ul>
         </nav>
       </header>

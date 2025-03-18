@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "../Components/Header";
+import Footer from "../Components/Footer";
 import type { InferGetStaticPropsType, GetStaticProps } from 'next';
 import React, { useState } from 'react';
+import { fetchGraphQL } from "../lib/fetchGraph";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,27 +23,17 @@ type Node = {
   featuredImage: { node: {sourceUrl: string, description: string}}
 };
 
-
+  
 type ProjectsProps = {
   projects: Node[];
 };
-
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  const graphEndpoint="https://irp.iml.mybluehost.me/website_cebc75f6/https://irp.iml.mybluehost.me/website_cebc75f6/https://irp.iml.mybluehost.me/website_cebc75f6/graphql";
   const query=`query { projects { nodes { id title content featuredImage { node { sourceUrl description} }  } } }`
-  const res = await fetch(graphEndpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query }),
-  });;
-  const {data} = await res.json()
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  const data = await fetchGraphQL(query);
+
   return {
     props: {projects:data.projects.nodes}
-  }
+  };
 }
 
 const processHtmlString = (html: string) => {
@@ -65,7 +57,7 @@ export default function Home({projects}: ProjectsProps) {
       <Navbar/>
 
 
-      <main className="max-w-6xl mx-auto">
+      <main className="max-w-lg mx-auto">
         <h1 className="text-5xl font-bold text-gray-300 underline text-center mb-10">Projects</h1>
         <h1 className="text-2xl font-bold text-gray-300 text-center mb-4">Click on any to demo</h1>
         <div className="grid gap-8">  
@@ -94,11 +86,7 @@ export default function Home({projects}: ProjectsProps) {
           ))}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-
-      Website made with NextJs, Typescript, Wordpress, and WPgraphQL.
-
-      </footer>
+     <Footer/>
     </div>
   );
 }
