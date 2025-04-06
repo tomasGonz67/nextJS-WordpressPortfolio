@@ -62,6 +62,7 @@ export default function Resume({resume}: ResumeProps) {
                         className="w-full h-full object-cover"
                       />
         </a>
+        <p className="text-center">Click for full resume</p>
         </div>
         </main>
         <Footer/>
