@@ -53,40 +53,40 @@ const processHtmlString = (html: string) => {
 
 export default function Home({projects}: ProjectsProps) {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-4 sm:p-8 pb-20 gap-8 sm:gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <Navbar/>
 
-
-      <main className="max-w-lg mx-auto">
-        <h1 className="text-5xl font-bold text-gray-300 underline text-center mb-10">Projects</h1>
-        <h1 className="text-2xl font-bold text-gray-300 text-center mb-4">Click on any to demo</h1>
-        <div className="grid gap-8">  
+      <main className="w-full max-w-lg mx-auto px-4 sm:px-0">
+        <h1 className="text-4xl sm:text-5xl font-bold text-gray-300 underline text-center mb-6 sm:mb-10">Projects</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-300 text-center mb-4">Click on any to demo</h1>
+        <div className="grid gap-6 sm:gap-8">  
           {projects.slice().reverse().map((project) => (
             <a
-              href={processHtmlString(project.featuredImage.node.description)} // Ensure this field is available from GraphQL
+              key={project.id}
+              href={processHtmlString(project.featuredImage.node.description)}
               target="_blank"
-              >
-            <div 
-              key={project.id} 
-              className="bg-gray-900 shadow-lg rounded-2xl overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"
+              className="block"
             >
-              <Image 
-                src={project.featuredImage.node.sourceUrl}
-                alt={project.title}
-                width={300}
-                height={500}
-                className="w-full h-56 object-cover"
-              />
-               <div className="p-6">
-                <h2 className="text-xl font-semibold text-white underline">{project.title}</h2>
-                <div className="text-gray-300 text-lg mt-2" dangerouslySetInnerHTML={{ __html: project.content }} />
+              <div 
+                className="bg-gray-900 shadow-lg rounded-2xl overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"
+              >
+                <Image 
+                  src={project.featuredImage.node.sourceUrl}
+                  alt={project.title}
+                  width={300}
+                  height={500}
+                  className="w-full h-48 sm:h-56 object-cover"
+                />
+                <div className="p-4 sm:p-6">
+                  <h2 className="text-lg sm:text-xl font-semibold text-white underline">{project.title}</h2>
+                  <div className="text-gray-300 text-base sm:text-lg mt-2" dangerouslySetInnerHTML={{ __html: project.content }} />
+                </div>
               </div>
-            </div>
             </a>
           ))}
         </div>
       </main>
-     <Footer/>
+      <Footer/>
     </div>
   );
 }
