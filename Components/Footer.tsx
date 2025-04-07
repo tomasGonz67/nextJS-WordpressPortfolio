@@ -2,7 +2,7 @@ export default function Footer(){
     return(
         <footer className="flex-wrap items-center justify-center mt-8">
 
-            Website made with NextJS (SSG), Typescript, Wordpress, and WPgraphQL.
+            <p className="text-gray-300">Website made with NextJS (SSG), Typescript, Wordpress, and WPgraphQL.</p>
             <div className="row-start-3 flex gap-[24px] items-center justify-center pt-4">
                 <a href="https://github.com/tomasGonz67" target="_blank" rel="noopener noreferrer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" stroke="black" fill="white" viewBox="0 0 24 24">
