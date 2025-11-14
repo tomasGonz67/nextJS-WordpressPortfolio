@@ -20,7 +20,7 @@ export default function Navbar(){
     };
     return(
         <header className='from-gray-900 to-black text-white w-full p-4 border-b border-gray-800 '>
-            <nav className="relative">
+            <nav className="relative flex items-center justify-center">
                 {/* Mobile menu button with hamburger icon */}
                 <div className="md:hidden absolute left-4 top-1/2 transform -translate-y-1/2 z-50">
                     <button
@@ -121,10 +121,13 @@ export default function Navbar(){
                             Contact Me
                         </Link>
                     </li>
-                    <button onClick={handleResumeClick} className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-all duration-200 transform hover:scale-105 hover:shadow-lg text-center cursor-pointer">
-                            Resume
-                        </button>
+
+
                 </ul>
+                <button onClick={handleResumeClick} className="ml-4 px-4 py-2 bg-gray-900 hover:bg-gray-700 text-white rounded-md transition-all duration-200 transform hover:scale-105 hover:shadow-lg text-center cursor-pointer">
+                            Resume
+                </button>
+
             </nav>
         </header>
     )
