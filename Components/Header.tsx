@@ -13,6 +13,11 @@ export default function Navbar(){
         setScrollHidden(!scrollHidden);
         document.body.style.overflow = !scrollHidden ? 'hidden' : 'auto';
       };
+    
+    const handleResumeClick = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        window.open('/api/resume.file', '_blank');
+    };
     return(
         <header className='from-gray-900 to-black text-white w-full p-4 border-b border-gray-800 '>
             <nav className="relative">
@@ -74,15 +79,7 @@ export default function Navbar(){
                                         About Me
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link 
-                                        href="/resume" 
-                                        className="text-2xl font-bold text-white hover:text-blue-400 transition-colors"
-                                        onClick={() => handleFunctions(false)}
-                                    >
-                                        Resume
-                                    </Link>
-                                </li>
+
                                 <li>
                                     <Link 
                                         href="/contact" 
@@ -92,6 +89,15 @@ export default function Navbar(){
                                         Contact Me
                                     </Link>
                                 </li>
+                                <button 
+                                        onClick={(e) => {
+                                            handleResumeClick(e);
+                                            handleFunctions(false);
+                                        }}
+                                        className="text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer"
+                                    >
+                                        Resume
+                                    </button>
                             </ul>
                         </div>
                     </div>
@@ -109,16 +115,15 @@ export default function Navbar(){
                             About Me
                         </Link>
                     </li>
-                    <li>
-                        <Link href="/resume" className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-all duration-200 transform hover:scale-105 hover:shadow-lg text-center">
-                            Resume
-                        </Link>
-                    </li>
+
                     <li>
                         <Link href="/contact" className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-all duration-200 transform hover:scale-105 hover:shadow-lg text-center">
                             Contact Me
                         </Link>
                     </li>
+                    <button onClick={handleResumeClick} className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-all duration-200 transform hover:scale-105 hover:shadow-lg text-center cursor-pointer">
+                            Resume
+                        </button>
                 </ul>
             </nav>
         </header>
