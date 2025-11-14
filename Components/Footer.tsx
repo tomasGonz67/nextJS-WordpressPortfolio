@@ -1,3 +1,4 @@
+import ChatBot from "./ChatBot";
 export default function Footer(){
     return(
         <footer className="flex-wrap items-center justify-center mt-8">
@@ -16,6 +17,7 @@ export default function Footer(){
                     </svg>
                 </a>
             </div>
+            <ChatBot />
 
             
         </footer>
