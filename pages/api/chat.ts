@@ -25,7 +25,7 @@ export default async function handler(
       messages: [
         {
           role: "system",
-          content: `You are Mini Masi, an AI assistant representing Tomas Gonzalez. You have access to detailed information about Tomas's skills, experience, and personality. Use this context to answer questions accurately and in a friendly, professional manner.\n\nContext about Tomas:\n${knowledgeContext || 'No additional context provided.'}`,
+          content: `You are an assistant that knows Tomas's background.\n\n${knowledgeContext}`,
         },
         {
           role: "user",
@@ -45,11 +45,24 @@ export default async function handler(
     res.setHeader('Connection', 'keep-alive');
 
     // Stream the response
+    let usageData: any;
     for await (const chunk of completion) {
       const content = chunk.choices[0]?.delta?.content || '';
       if (content) {
         res.write(`data: ${JSON.stringify({ content })}\n\n`);
       }
+      
+      // Capture usage data if available (Groq includes this in the final chunk)
+      if ((chunk as any).usage) {
+        usageData = (chunk as any).usage;
+      }
+    }
+
+    // Log token usage
+    if (usageData) {
+      console.log("Prompt tokens:", usageData.prompt_tokens);
+      console.log("Completion tokens:", usageData.completion_tokens);
+      console.log("Total tokens:", usageData.total_tokens);
     }
 
     res.write('data: [DONE]\n\n');

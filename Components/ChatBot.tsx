@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { knowledge } from '../data/knowledge';
-import { encode } from '@toon-format/toon';
-
+import { knowledgeToon } from '../data/knowledgeToon';
 type Message = {
   id: number;
   text: string;
@@ -23,10 +22,6 @@ export default function ChatBot() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
-
-    const knowledgeToon = encode(knowledge);
-    console.log(knowledge);
-    console.log(knowledgeToon);
 
     const userMessage: Message = {
       id: Date.now(),
