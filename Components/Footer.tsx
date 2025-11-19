@@ -1,10 +1,8 @@
-import ChatBot from "./ChatBot";
-
 export default function Footer(){
     return(
         <footer className="flex-wrap items-center justify-center mt-8">
 
-            <p className="text-gray-300">Website made with NextJS (SSG), Typescript, Wordpress, and WPgraphQL.</p>
+            <p className="text-gray-300">Website made with NextJS (SSG), Typescript, Strapi Headless CMS, and Groq API.</p>
             
             <div className="flex gap-[24px] items-center justify-center pt-4">
                 <a href="https://github.com/tomasGonz67" target="_blank" rel="noopener noreferrer">
@@ -19,8 +17,6 @@ export default function Footer(){
                     </svg>
                 </a>
             </div>
-            <ChatBot />
-
             
         </footer>
     )

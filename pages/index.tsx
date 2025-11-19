@@ -53,12 +53,12 @@ export default function Home({ projects }: HomeProps) {
       <Navbar/>
 
       <main className="w-full max-w-lg mx-auto px-4 sm:px-0">
-        <h1 className="text-4xl sm:text-5xl font-bold text-gray-300 underline text-center mb-6 sm:mb-10">Projects</h1>
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-300 text-center mb-4">Click on any to demo</h1>
+        <h1 className="text-4xl sm:text-5xl font-bold text-gray-300 underline text-center mb-6 sm:mb-10">Portfolio</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-300 text-center mb-4">Click on any to view</h1>
         
         {projects && projects.length > 0 ? (
           <div className="grid gap-6 sm:gap-8">  
-            {projects.slice().reverse().map((project) => (
+            {projects.map((project) => (
               <a
                 key={project.id}
                 href={project.url}

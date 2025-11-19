@@ -39,7 +39,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "Hello! I'm Mini Masi! I am an AI powered assistant based off Tomas Gonzalez! I am a hugging face model connected to his stuff via stuff. I am connected to all of his skills, and have a personality based off him. Feel free to ask me anything about my skills, work experience, personal experience or anything if you would just like to chat :).",
+      text: "Hello! I'm Mini Masi! I am an AI powered assistant based off Tomas Gonzalez! Ask me anything about me or my work :).",
       sender: 'ai',
       timestamp: new Date(),
     }
@@ -112,13 +112,30 @@ export default function ChatBot() {
               const parsed = JSON.parse(data);
               if (parsed.content) {
                 accumulatedText += parsed.content;
-                setMessages(prev =>
-                  prev.map(msg =>
-                    msg.id === aiMessageId
-                      ? { ...msg, text: accumulatedText }
-                      : msg
-                  )
-                );
+                
+                // Check for redirect command
+                if (accumulatedText.includes('[REDIRECT:CONTACT]')) {
+                  const cleanText = accumulatedText.replace('[REDIRECT:CONTACT]', '').trim();
+                  setMessages(prev =>
+                    prev.map(msg =>
+                      msg.id === aiMessageId
+                        ? { ...msg, text: cleanText }
+                        : msg
+                    )
+                  );
+                  // Redirect after showing the message
+                  setTimeout(() => {
+                    window.location.href = '/contact';
+                  }, 2000);
+                } else {
+                  setMessages(prev =>
+                    prev.map(msg =>
+                      msg.id === aiMessageId
+                        ? { ...msg, text: accumulatedText }
+                        : msg
+                    )
+                  );
+                }
               }
               if (parsed.stats) {
                 if (parsed.stats.isEfficient) {
@@ -168,6 +185,139 @@ export default function ChatBot() {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSendMessage();
+    }
+  };
+
+  const handleQuickAction = async (quickMessage: string) => {
+    const userMessage: Message = {
+      id: Date.now(),
+      text: quickMessage,
+      sender: 'user',
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+
+    // Create a placeholder for AI response
+    const aiMessageId = Date.now() + 1;
+    const aiMessage: Message = {
+      id: aiMessageId,
+      text: '',
+      sender: 'ai',
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, aiMessage]);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: quickMessage,
+          knowledgeContext: knowledge,
+          selectedFormat: selectedFormat,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response');
+      }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (!reader) {
+        throw new Error('No reader available');
+      }
+
+      let accumulatedText = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            if (data === '[DONE]') {
+              break;
+            }
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.content) {
+                accumulatedText += parsed.content;
+                
+                // Check for redirect command
+                if (accumulatedText.includes('[REDIRECT:CONTACT]')) {
+                  const cleanText = accumulatedText.replace('[REDIRECT:CONTACT]', '').trim();
+                  setMessages(prev =>
+                    prev.map(msg =>
+                      msg.id === aiMessageId
+                        ? { ...msg, text: cleanText }
+                        : msg
+                    )
+                  );
+                  // Redirect after showing the message
+                  setTimeout(() => {
+                    window.location.href = '/contact';
+                  }, 2000);
+                } else {
+                  setMessages(prev =>
+                    prev.map(msg =>
+                      msg.id === aiMessageId
+                        ? { ...msg, text: accumulatedText }
+                        : msg
+                    )
+                  );
+                }
+              }
+              if (parsed.stats) {
+                if (parsed.stats.isEfficient) {
+                  // Add to efficient stats history
+                  const newEfficientStat: EfficientStatEntry = {
+                    id: Date.now(),
+                    jsonTokens: parsed.stats.jsonTokens,
+                    toonTokens: parsed.stats.toonTokens,
+                    formatUsed: parsed.stats.format,
+                    promptTokens: parsed.stats.promptTokens,
+                    completionTokens: parsed.stats.completionTokens,
+                    totalTokens: parsed.stats.totalTokens,
+                    timestamp: new Date()
+                  };
+                  setEfficientStatsHistory(prev => [...prev, newEfficientStat]);
+                } else {
+                  // Add to normal stats history
+                  const newStat: StatEntry = {
+                    id: Date.now(),
+                    format: parsed.stats.format,
+                    promptTokens: parsed.stats.promptTokens,
+                    completionTokens: parsed.stats.completionTokens,
+                    totalTokens: parsed.stats.totalTokens,
+                    timestamp: new Date()
+                  };
+                  setStatsHistory(prev => [...prev, newStat]);
+                }
+              }
+            } catch (e) {
+              // Skip invalid JSON
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error getting AI response:', error);
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === aiMessageId
+            ? { ...msg, text: 'Sorry, I encountered an error. Please try again.' }
+            : msg
+        )
+      );
     }
   };
 
@@ -300,6 +450,28 @@ export default function ChatBot() {
 
       {/* Chat Input */}
       <div className="p-3 border-t border-gray-700 rounded-b-lg">
+        {/* Quick Action Buttons */}
+        <div className="flex gap-2 mb-3 flex-wrap">
+          <button
+            onClick={() => handleQuickAction("Tell me about your experience")}
+            className="flex-1 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded-md transition-colors"
+          >
+            Ask about my experience
+          </button>
+          <button
+            onClick={() => handleQuickAction("Tell me about this project")}
+            className="flex-1 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded-md transition-colors"
+          >
+            Ask about this project
+          </button>
+          <button
+            onClick={() => handleQuickAction("Tell me about your personal life")}
+            className="flex-1 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded-md transition-colors"
+          >
+            Ask about my personal life
+          </button>
+        </div>
+        
         <div className="flex gap-2">
           <input
             type="text"

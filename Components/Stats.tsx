@@ -4,6 +4,8 @@ type StatEntry = {
   promptTokens: number;
   completionTokens: number;
   totalTokens: number;
+  ttft?: number;
+  latency?: number;
   timestamp: Date;
 };
 
@@ -15,6 +17,8 @@ type EfficientStatEntry = {
   promptTokens: number;
   completionTokens: number;
   totalTokens: number;
+  ttft?: number;
+  latency?: number;
   timestamp: Date;
 };
 
@@ -86,6 +90,18 @@ export default function Stats({ statsHistory, efficientStatsHistory, mode }: Sta
                       <span className="text-green-400 font-semibold">Money Saved:</span>
                       <span className="text-green-400 font-bold">${moneySaved}</span>
                     </div>
+                    {stat.ttft !== undefined && (
+                      <div className="flex justify-between items-center pt-1 border-t border-gray-700">
+                        <span className="text-purple-400 font-semibold">TTFT:</span>
+                        <span className="text-purple-400 font-bold">{stat.ttft}ms</span>
+                      </div>
+                    )}
+                    {stat.latency !== undefined && (
+                      <div className="flex justify-between items-center">
+                        <span className="text-purple-400 font-semibold">Latency:</span>
+                        <span className="text-purple-400 font-bold">{stat.latency}ms</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -140,6 +156,18 @@ export default function Stats({ statsHistory, efficientStatsHistory, mode }: Sta
                     <span className="text-green-400 font-semibold">Total Cost:</span>
                     <span className="text-green-400 font-bold">${totalCost}</span>
                   </div>
+                  {stat.ttft !== undefined && (
+                    <div className="flex justify-between items-center pt-1 border-t border-gray-700">
+                      <span className="text-purple-400 font-semibold">TTFT:</span>
+                      <span className="text-purple-400 font-bold">{stat.ttft}ms</span>
+                    </div>
+                  )}
+                  {stat.latency !== undefined && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-purple-400 font-semibold">Latency:</span>
+                      <span className="text-purple-400 font-bold">{stat.latency}ms</span>
+                    </div>
+                  )}
                 </div>
               </div>
             );

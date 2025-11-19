@@ -107,7 +107,7 @@ export default function Navbar(){
                 <ul className="hidden md:flex flex-row space-x-6 justify-center ">
                     <li>
                         <Link href="/" className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-all duration-200 transform hover:scale-105 hover:shadow-lg text-center">
-                            Projects
+                            Portfolio
                         </Link>
                     </li>
                     <li>
