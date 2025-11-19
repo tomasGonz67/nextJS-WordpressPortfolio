@@ -6,11 +6,34 @@ export const knowledge =
       "role": "Engineer",
       "location": "New Jersey, USA"
     },
+    "strength-of-skills": {
+      "strong": [
+        "AI/ML",
+        "Cloud Infrastructure",
+        "DevOps",
+        "Backend Development"
+      ],
+      "moderate": [
+        "Frontend Development",
+        "Networking",
+        "Databases",
+        "Mobile Development",
+        "Quality Assurance"
+
+      ],
+      "less_strong": [
+        "Security",
+        "Blockchain/Web3",
+        "UI/UX Design",
+      ]
+    },
+
     "skills": {
       "programming_languages": [
         "Python",
         "JavaScript",
         "TypeScript",
+        "YAML",
         "PHP",
         "Bash",
         "SQL",
@@ -43,7 +66,9 @@ export const knowledge =
         "Vector Databases",
         "RAG / Lite-RAG",
         "LLM Integrations (HuggingFace, Groq, OpenAI)",
-        "AI Image Generation (Stable Diffusion)"
+        "AI Image Generation (Stable Diffusion)",
+        "Understanding VRAM, GPU, Parameters, and Percision.",
+        "TensorFlow for deployment"
       ],
       "devops": [
         "Docker",
@@ -141,6 +166,11 @@ export const knowledge =
             "Conducted code reviews, architecture walkthroughs, and infrastructure sessions to ensure internal consistency",
             "Initiated internal restructuring and processes including Jira task management, QA/testing protocols, structural/positioning and team standups"
           ],
+          "development": [
+            "Built automated Playwright-based workflows for an arrest search system to collect data from multiple state-level sources to ensure business needs while avoiding legal issues.",
+            "Implemented backend logic in ExpressJS with a structured SQL database for accurate, high-performance record ingestion and retrieval for the sex offender search system.",
+            "implemented frontend logic in React Native to create a user friendly interface for the arrest search system.",
+          ],
           "cross_functional": [
             "Collaborated with leadership to define technical roadmaps, budgets, timelines, and launch strategy",
             "Managed vendor relationships to secure datasets and integrate third-party services",
@@ -152,7 +182,7 @@ export const knowledge =
             "JavaScript",
             "TypeScript",
             "Node.js",
-            "React",
+            "React Native",
             "Playwright",
             "InsightFace",
             "RetinaFace",
@@ -173,6 +203,10 @@ export const knowledge =
         "start": "2024-12-01",
         "end": "2025-06-30",
         "responsibilities": {
+          "AI/ML": [
+            "First exposure to vector databases by setting up Qdrant container.",
+            "First exposure to AI model training and knowledge graph integration."
+          ],
           "devops": [
             "Handled a wide range of DevOps tasks including environment setup, workflow automation, and deployment processes",
             "Wrote and maintained YAML-based configurations for CI/CD pipelines and internal automation tools",
@@ -185,13 +219,14 @@ export const knowledge =
             "Assisted with provisioning, troubleshooting, and optimizing infrastructure components under guidance from senior engineers"
           ],
           "backend_development": [
-            "Developed backend components using Python and FastAPI to support core application features",
+            "Created original backend API using Python, Jinja, and FastAPI to support core application features",
             "Contributed to API development, data processing workflows, and backend performance improvements",
-            "Followed strong software engineering practices including modular design, clean interfaces, and thorough testing"
+            "Followed strong software engineering practices including modular design, clean interfaces, and thorough testing",
+            "Debugged backend issues and provided solutions to ensure the application is running smoothly.",
           ],
           "frontend_development": [
-            "Implemented features and UI components using TypeScript, ensuring consistent design and behavior across the application",
-            "Worked closely with designers and senior engineers to create user-friendly, high-clarity interfaces"
+            "Reviewed frontend code and provided feedback to ensure consistency and maintainability.",
+            "Debugged frontend issues and provided solutions to ensure the application is running smoothly.",
           ],
           "process_and_engineering_practices": [
             "Followed established engineering standards to ensure high-quality, maintainable, and production-ready code",
@@ -253,11 +288,11 @@ export const knowledge =
         "summary": "My current side project is a real time multiplayer card game that will allow users to play with each other in real time. I plan on uploading this to the app store once it is completed.",
       },
       {
-        id: "ai-image-generation",
-        title: "AI Image Generation",
-        tech: ["Stable Diffusion", "OpenAI"],
-        summary: "I created a custom AI image generation system that uses the Stable Diffusion model to generate images based on a user's prompt.",
-        github: "https://github.com/tomasGonz67/is322AIDemo",
+        "id": "ai-image-generation",
+        "title": "AI Image Generation",
+        "tech": ["Stable Diffusion", "OpenAI"],
+        "summary": "I created a custom AI image generation system that uses the Stable Diffusion model to generate images based on a user's prompt.",
+        "github": "https://github.com/tomasGonz67/is322AIDemo",
       },
       {
         "id": "Fitness-Tracker-App",
@@ -429,7 +464,7 @@ export const knowledge =
         "Running",
         "Hiking trails",
         "Climbing",
-        "Listening to music"
+        "Listening to music (nearly all genres)"
       ],
     }
   }

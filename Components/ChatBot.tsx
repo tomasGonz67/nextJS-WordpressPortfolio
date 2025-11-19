@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { knowledge } from '../data/knowledge';
 import Stats from './Stats';
 
@@ -30,6 +31,7 @@ type EfficientStatEntry = {
 };
 
 export default function ChatBot() {
+  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(true);
   const [selectedFormat, setSelectedFormat] = useState<'toon' | 'json' | 'efficient'>('toon');
   const [showStats, setShowStats] = useState(false);
@@ -125,7 +127,7 @@ export default function ChatBot() {
                   );
                   // Redirect after showing the message
                   setTimeout(() => {
-                    window.location.href = '/contact';
+                    router.push('/contact');
                   }, 2000);
                 } else {
                   setMessages(prev =>
@@ -264,7 +266,7 @@ export default function ChatBot() {
                   );
                   // Redirect after showing the message
                   setTimeout(() => {
-                    window.location.href = '/contact';
+                    router.push('/contact');
                   }, 2000);
                 } else {
                   setMessages(prev =>
@@ -434,13 +436,13 @@ export default function ChatBot() {
                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[75%] px-4 py-2 rounded-lg ${
+                  className={`max-w-[75%] px-4 py-2 rounded-lg break-words ${
                     message.sender === 'user'
                       ? 'bg-blue-600 text-white'
                       : 'bg-white text-gray-900'
                   }`}
                 >
-                  <p className="text-sm">{message.text}</p>
+                  <p className="text-sm break-words overflow-wrap-anywhere">{message.text}</p>
                 </div>
               </div>
             ))
