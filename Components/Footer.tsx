@@ -1,10 +1,12 @@
 import ChatBot from "./ChatBot";
+
 export default function Footer(){
     return(
         <footer className="flex-wrap items-center justify-center mt-8">
 
             <p className="text-gray-300">Website made with NextJS (SSG), Typescript, Wordpress, and WPgraphQL.</p>
-            <div className="row-start-3 flex gap-[24px] items-center justify-center pt-4">
+            
+            <div className="flex gap-[24px] items-center justify-center pt-4">
                 <a href="https://github.com/tomasGonz67" target="_blank" rel="noopener noreferrer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" stroke="black" fill="white" viewBox="0 0 24 24">
                         <path d="M12 0a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7-1 .7-1-1.4-.1-2.8-.7-2.8-3.1 0-.7.2-1.3.6-1.8-.1-.2-.3-.9.1-1.9 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.1-1.5 3.1-1.2 3.1-1.2.4 1 .2 1.7.1 1.9.4.5.6 1.1.6 1.8 0 2.4-1.4 3-2.8 3.1.3.2.7.9.7 1.8v2.6c0 .3.2.7.8.6A12 12 0 0 0 12 0Z"/>

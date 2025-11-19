@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { knowledge } from '../data/knowledge';
-import { knowledgeToon } from '../data/knowledgeToon';
+import Stats from './Stats';
+
 type Message = {
   id: number;
   text: string;
@@ -8,8 +9,33 @@ type Message = {
   timestamp: Date;
 };
 
+type StatEntry = {
+  id: number;
+  format: string;
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  timestamp: Date;
+};
+
+type EfficientStatEntry = {
+  id: number;
+  jsonTokens: number;
+  toonTokens: number;
+  formatUsed: string;
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  timestamp: Date;
+};
+
 export default function ChatBot() {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [selectedFormat, setSelectedFormat] = useState<'toon' | 'json' | 'efficient'>('toon');
+  const [showStats, setShowStats] = useState(false);
+  const [statsMode, setStatsMode] = useState<'normal' | 'efficient'>('normal');
+  const [statsHistory, setStatsHistory] = useState<StatEntry[]>([]);
+  const [efficientStatsHistory, setEfficientStatsHistory] = useState<EfficientStatEntry[]>([]);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -22,7 +48,6 @@ export default function ChatBot() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
-
     const userMessage: Message = {
       id: Date.now(),
       text: inputValue,
@@ -52,7 +77,8 @@ export default function ChatBot() {
         },
         body: JSON.stringify({
           message: currentInput,
-          knowledgeContext: knowledgeToon,
+          knowledgeContext: knowledge,
+          selectedFormat: selectedFormat,
         }),
       });
 
@@ -93,6 +119,33 @@ export default function ChatBot() {
                       : msg
                   )
                 );
+              }
+              if (parsed.stats) {
+                if (parsed.stats.isEfficient) {
+                  // Add to efficient stats history
+                  const newEfficientStat: EfficientStatEntry = {
+                    id: Date.now(),
+                    jsonTokens: parsed.stats.jsonTokens,
+                    toonTokens: parsed.stats.toonTokens,
+                    formatUsed: parsed.stats.format,
+                    promptTokens: parsed.stats.promptTokens,
+                    completionTokens: parsed.stats.completionTokens,
+                    totalTokens: parsed.stats.totalTokens,
+                    timestamp: new Date()
+                  };
+                  setEfficientStatsHistory(prev => [...prev, newEfficientStat]);
+                } else {
+                  // Add to normal stats history
+                  const newStat: StatEntry = {
+                    id: Date.now(),
+                    format: parsed.stats.format,
+                    promptTokens: parsed.stats.promptTokens,
+                    completionTokens: parsed.stats.completionTokens,
+                    totalTokens: parsed.stats.totalTokens,
+                    timestamp: new Date()
+                  };
+                  setStatsHistory(prev => [...prev, newStat]);
+                }
               }
             } catch (e) {
               // Skip invalid JSON
@@ -149,27 +202,72 @@ export default function ChatBot() {
   return (
     <div className="fixed bottom-6 right-6 w-80 bg-gray-800 rounded-lg shadow-2xl border border-gray-700">
       {/* Chat Header */}
-      <div className="bg-gray-900 px-4 py-3 rounded-t-lg border-b border-gray-700 flex justify-between items-center">
-        <h3 className="text-white font-semibold">Chat</h3>
-        <button
-          onClick={() => setIsExpanded(false)}
-          className="text-gray-400 hover:text-white transition-colors"
-          aria-label="Minimize chat"
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+      <div className="bg-gray-900 px-4 py-3 rounded-t-lg border-b border-gray-700">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-white font-semibold">Chat</h3>
+          <button
+            onClick={() => setIsExpanded(false)}
+            className="text-gray-400 hover:text-white transition-colors"
+            aria-label="Minimize chat"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M20 12H4"
-            />
-          </svg>
-        </button>
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M20 12H4"
+              />
+            </svg>
+          </button>
+        </div>
+        
+        {/* Format Toggle and Stats */}
+        <div className="flex gap-2 items-center">
+          <span className="text-gray-400 text-xs">Data Format:</span>
+          <div className="flex gap-1 bg-gray-800 rounded-lg p-0.5 text-xs">
+            <button
+              onClick={() => setSelectedFormat('toon')}
+              className={`px-2 py-1 rounded transition-colors ${
+                selectedFormat === 'toon' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              TOON
+            </button>
+            <button
+              onClick={() => setSelectedFormat('json')}
+              className={`px-2 py-1 rounded transition-colors ${
+                selectedFormat === 'json' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              JSON
+            </button>
+            <button
+              onClick={() => setSelectedFormat('efficient')}
+              className={`px-2 py-1 rounded transition-colors ${
+                selectedFormat === 'efficient' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              Efficient
+            </button>
+          </div>
+          <button 
+            onClick={() => setShowStats(!showStats)}
+            className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded transition-colors"
+          >
+            Stats
+          </button>
+        </div>
       </div>
 
       {/* Chat Messages Area */}
@@ -219,6 +317,72 @@ export default function ChatBot() {
           </button>
         </div>
       </div>
+
+      {/* Stats Modal */}
+      {showStats && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+          <div className="bg-gray-800 rounded-lg shadow-2xl border border-gray-700 w-[500px] h-[600px] flex flex-col pointer-events-auto">
+            <div className="flex justify-between items-center p-6 pb-4 flex-shrink-0">
+              <div>
+                <h2 className="text-white text-xl font-semibold">Stats</h2>
+                <p className="text-gray-400 text-xs mt-1">Groq's llama-3.3-70b-versatile</p>
+              </div>
+              <button
+                onClick={() => setShowStats(false)}
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="Close stats"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-6 pb-4">
+              <Stats 
+                statsHistory={statsHistory} 
+                efficientStatsHistory={efficientStatsHistory}
+                mode={statsMode}
+              />
+            </div>
+            
+            {/* Mode Toggle */}
+            <div className="px-6 pb-6 pt-2 border-t border-gray-700 flex-shrink-0">
+              <div className="flex gap-2 bg-gray-900 rounded-lg p-1">
+                <button
+                  onClick={() => setStatsMode('normal')}
+                  className={`flex-1 px-4 py-2 rounded-md font-semibold transition-colors ${
+                    statsMode === 'normal'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  JSON/TOON
+                </button>
+                <button
+                  onClick={() => setStatsMode('efficient')}
+                  className={`flex-1 px-4 py-2 rounded-md font-semibold transition-colors ${
+                    statsMode === 'efficient'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  Efficient
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

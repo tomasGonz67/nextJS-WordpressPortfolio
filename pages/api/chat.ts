@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Groq from 'groq-sdk';
+import { encode } from '@toon-format/toon';
+import { encode as encodeTokenizer } from "gpt-tokenizer";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +11,7 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { message, knowledgeContext } = req.body;
+  const { message, knowledgeContext, selectedFormat } = req.body;
 
   if (!message) {
     return res.status(400).json({ error: 'Message is required' });
@@ -20,20 +22,66 @@ export default async function handler(
       apiKey: process.env.GROQ_API_KEY,
     });
 
+    const systemPrompt = `You are Tomas Gonzalez. This is your background. You are a software engineer. Keep answers brief—no more than 2–3 sentences unless explicitly asked.`;
+    const toonString = encode(knowledgeContext, { delimiter: ',' });
+    const jsonString = JSON.stringify(knowledgeContext);
+    
+    let dataString: string;
+    let formatLabel: string;
+    let formatInstruction: string;
+    let jsonTokenCount: number | undefined;
+    let toonTokenCount: number | undefined;
+    
+    // Choose data format based on selectedFormat
+    if (selectedFormat === 'efficient') {
+      // Count tokens for both formats
+      jsonTokenCount = encodeTokenizer(jsonString).length;
+      toonTokenCount = encodeTokenizer(toonString).length;
+      
+      // Use whichever has fewer tokens
+      if (jsonTokenCount <= toonTokenCount) {
+        dataString = jsonString;
+        formatLabel = 'JSON';
+        formatInstruction = 'Data is in JSON format. Parse carefully.';
+      } else {
+        dataString = toonString;
+        formatLabel = 'TOON';
+        formatInstruction = 'Data is in TOON format (Token-Oriented Object Notation). Parse carefully.';
+      }
+      
+      console.log(`Efficient mode: JSON=${jsonTokenCount}, TOON=${toonTokenCount}, Using=${formatLabel}`);
+    } else {
+      dataString = selectedFormat === 'json' ? jsonString : toonString;
+      formatLabel = selectedFormat === 'json' ? 'JSON' : 'TOON';
+      formatInstruction = selectedFormat === 'json' 
+        ? 'Data is in JSON format. Parse carefully.'
+        : 'Data is in TOON format (Token-Oriented Object Notation). Parse carefully.';
+      
+      console.log(`Using format: ${formatLabel}`);
+    }
+    
+    const query = message;
+    
     const completion = await client.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       messages: [
         {
-          role: "system",
-          content: `You are an assistant that knows Tomas's background.\n\n${knowledgeContext}`,
+          role: 'system',
+          content: systemPrompt + ' ' + formatInstruction
         },
         {
-          role: "user",
-          content: message,
+          role: 'user',
+          content: `Data (${formatLabel}):
+        \`\`\`${selectedFormat === 'json' ? 'json' : 'toon'}
+        ${dataString}
+        \`\`\`
+        
+        Question: ${query}`
         }
+        
       ],
-      temperature: 1,
-      max_completion_tokens: 1024,
+      temperature: 0.0,
+      max_completion_tokens: 100,
       top_p: 1,
       stream: true,
       stop: null,
@@ -58,11 +106,28 @@ export default async function handler(
       }
     }
 
-    // Log token usage
+    // Log token usage and send to client
     if (usageData) {
       console.log("Prompt tokens:", usageData.prompt_tokens);
       console.log("Completion tokens:", usageData.completion_tokens);
       console.log("Total tokens:", usageData.total_tokens);
+      
+      // Send stats to client
+      const statsData: any = {
+        format: formatLabel,
+        promptTokens: usageData.prompt_tokens,
+        completionTokens: usageData.completion_tokens,
+        totalTokens: usageData.total_tokens
+      };
+      
+      // Add efficient mode data if applicable
+      if (selectedFormat === 'efficient' && jsonTokenCount !== undefined && toonTokenCount !== undefined) {
+        statsData.isEfficient = true;
+        statsData.jsonTokens = jsonTokenCount;
+        statsData.toonTokens = toonTokenCount;
+      }
+      
+      res.write(`data: ${JSON.stringify({ stats: statsData })}\n\n`);
     }
 
     res.write('data: [DONE]\n\n');
