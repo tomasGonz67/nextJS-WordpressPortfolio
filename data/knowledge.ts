@@ -388,8 +388,8 @@ export const knowledge =
       {
         "id": "Holistic-Hands-App",
         "title": "Holistic Hands App",
-        "tech": ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
-        "summary": "A Holistic Hands App uses a MySQL database to store user information and a PHP backend to handle the database operations.",
+        "tech": ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "FTPS"],
+        "summary": "A Holistic Hands App uses a MySQL database to store user information and a PHP backend to handle the database operations. Used FTPS to transfer files to the webserver.",
         "github": "",
         "live": ""
       },
