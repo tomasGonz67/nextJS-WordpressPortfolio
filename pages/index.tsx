@@ -70,7 +70,7 @@ export default function Home({ projects }: HomeProps) {
                 >
                   {project.image?.url && (
                     <Image 
-                      src={`${STRAPI_URL}${project.image.url}`}
+                      src={`${project.image.url}`}
                       alt={project.projectName}
                       width={300}
                       height={500}
