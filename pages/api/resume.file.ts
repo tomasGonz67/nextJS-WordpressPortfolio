@@ -5,7 +5,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-  const STRAPI_API_TOKEN = process.env.STRAPI_READ_TOKEN;
+  const STRAPI_API_TOKEN = process.env.STRAPI_PROD_TOKEN;
 
   try {
     // Fetch resume data from Strapi
