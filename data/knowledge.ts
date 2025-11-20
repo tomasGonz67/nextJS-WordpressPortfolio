@@ -28,6 +28,18 @@ export const knowledge =
       ]
     },
 
+    "strength-of-soft-skills": {
+      "strong": [
+        "Leadership and initiative",
+        "Mentoring",
+        "HIGHLY Independent Problem Solving",
+        "Cross-Functional Collaboration",
+        "Adaptability",
+        "Problem Solving",
+        "Self-motivation and drive",
+        "I have no weaknesses",
+      ],
+    },
     "skills": {
       "programming_languages": [
         "Python",
