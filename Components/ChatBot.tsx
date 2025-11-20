@@ -359,7 +359,7 @@ export default function ChatBot() {
           <h3 className="text-white font-semibold">Chat</h3>
           <button
             onClick={() => setIsExpanded(false)}
-            className="hidden md:block text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-white transition-colors"
             aria-label="Minimize chat"
           >
             <svg
