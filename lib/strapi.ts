@@ -1,6 +1,11 @@
 export const fetchData = async (endpoint: string) => {
   const apiBase = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
-  const token = process.env.STRAPI_READ_TOKEN;
+  
+  // Use production token for prod URL, local token for localhost
+  const isProduction = apiBase.includes('strapiapp.com');
+  const token = isProduction 
+    ? process.env.STRAPI_PROD_TOKEN 
+    : process.env.STRAPI_LOCAL_TOKEN;
 
   const res = await fetch(`${apiBase}${endpoint}`, {
     headers: {

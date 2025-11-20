@@ -151,7 +151,7 @@ export const knowledge =
     },
     "workExperience": [
       {
-        "company": "Cadooga",
+        "company": "Cadooga (Startup)",
         "role": "Engineering Lead / Founding Engineer",
         "start": "2025-06-04",
         "end": "Present",
@@ -210,7 +210,7 @@ export const knowledge =
         }
       },
       {
-        "company": "TheoForge",
+        "company": "TheoForge (Startup)",
         "role": "Full-Stack / DevOps Engineer",
         "start": "2024-12-01",
         "end": "2025-06-30",
