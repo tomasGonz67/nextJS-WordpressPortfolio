@@ -27,7 +27,7 @@ export default async function handler(
     }
 
     // Redirect to the resume file
-    const fullFileUrl = `${STRAPI_URL}${resumeFileUrl}`;
+    const fullFileUrl = `${resumeFileUrl}`;
     res.redirect(302, fullFileUrl);
   } catch (error) {
     console.error('Error fetching resume:', error);
