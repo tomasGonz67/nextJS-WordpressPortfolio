@@ -326,7 +326,7 @@ export default function ChatBot() {
   // Minimized bar view
   if (!isExpanded) {
     return (
-      <div className="fixed bottom-6 right-6 bg-gray-800 rounded-lg shadow-2xl border border-gray-700 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-gray-700 transition-colors" onClick={() => setIsExpanded(true)}>
+      <div className="hidden md:flex fixed bottom-6 right-6 bg-gray-800 rounded-lg shadow-2xl border border-gray-700 px-4 py-3 items-center gap-3 cursor-pointer hover:bg-gray-700 transition-colors" onClick={() => setIsExpanded(true)}>
         <h3 className="text-white font-semibold">Chat</h3>
         <button
           className="text-gray-400 hover:text-white transition-colors"
