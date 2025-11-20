@@ -352,14 +352,14 @@ export default function ChatBot() {
 
   // Expanded chat view
   return (
-    <div className="fixed bottom-0 right-0 md:bottom-6 md:right-6 w-full h-full md:w-80 md:h-auto bg-gray-800 md:rounded-lg shadow-2xl border border-gray-700">
+    <div className="fixed bottom-0 right-0 md:bottom-6 md:right-6 w-full h-full md:w-80 md:h-auto bg-gray-800 md:rounded-lg shadow-2xl border border-gray-700 flex flex-col">
       {/* Chat Header */}
-      <div className="bg-gray-900 px-4 py-3 md:rounded-t-lg border-b border-gray-700">
+      <div className="bg-gray-900 px-4 py-3 md:rounded-t-lg border-b border-gray-700 flex-shrink-0">
         <div className="flex justify-between items-center mb-2">
           <h3 className="text-white font-semibold">Chat</h3>
           <button
             onClick={() => setIsExpanded(false)}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="hidden md:block text-gray-400 hover:text-white transition-colors"
             aria-label="Minimize chat"
           >
             <svg
@@ -451,7 +451,7 @@ export default function ChatBot() {
       </div>
 
       {/* Chat Input */}
-      <div className="p-3 border-t border-gray-700 md:rounded-b-lg">
+      <div className="p-3 border-t border-gray-700 md:rounded-b-lg flex-shrink-0">
         {/* Quick Action Buttons */}
         <div className="flex gap-2 mb-3 flex-wrap">
           <button
