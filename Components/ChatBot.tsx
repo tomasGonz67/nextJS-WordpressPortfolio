@@ -352,9 +352,9 @@ export default function ChatBot() {
 
   // Expanded chat view
   return (
-    <div className="fixed bottom-6 right-6 w-80 bg-gray-800 rounded-lg shadow-2xl border border-gray-700">
+    <div className="fixed bottom-0 right-0 md:bottom-6 md:right-6 w-full h-full md:w-80 md:h-auto bg-gray-800 md:rounded-lg shadow-2xl border border-gray-700">
       {/* Chat Header */}
-      <div className="bg-gray-900 px-4 py-3 rounded-t-lg border-b border-gray-700">
+      <div className="bg-gray-900 px-4 py-3 md:rounded-t-lg border-b border-gray-700">
         <div className="flex justify-between items-center mb-2">
           <h3 className="text-white font-semibold">Chat</h3>
           <button
@@ -423,7 +423,7 @@ export default function ChatBot() {
       </div>
 
       {/* Chat Messages Area */}
-      <div className="h-96 p-4 overflow-y-auto bg-gray-800">
+      <div className="flex-1 md:h-96 p-4 overflow-y-auto bg-gray-800">
         <div className="flex flex-col space-y-3">
           {messages.length === 0 ? (
             <p className="text-gray-500 text-sm text-center mt-8">
@@ -451,7 +451,7 @@ export default function ChatBot() {
       </div>
 
       {/* Chat Input */}
-      <div className="p-3 border-t border-gray-700 rounded-b-lg">
+      <div className="p-3 border-t border-gray-700 md:rounded-b-lg">
         {/* Quick Action Buttons */}
         <div className="flex gap-2 mb-3 flex-wrap">
           <button
@@ -495,7 +495,7 @@ export default function ChatBot() {
       {/* Stats Modal */}
       {showStats && (
         <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-          <div className="bg-gray-800 rounded-lg shadow-2xl border border-gray-700 w-[500px] h-[600px] flex flex-col pointer-events-auto">
+          <div className="bg-gray-800 md:rounded-lg shadow-2xl border border-gray-700 w-full h-full md:w-[500px] md:h-[600px] flex flex-col pointer-events-auto">
             <div className="flex justify-between items-center p-6 pb-4 flex-shrink-0">
               <div>
                 <h2 className="text-white text-xl font-semibold">Stats</h2>
