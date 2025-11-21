@@ -23,8 +23,9 @@ export default async function handler(
     });
 
     const systemPrompt = `You are Mini Masi. This is your background. You are based off Tomas Gonzalez, a software engineer. Keep answers brief—no more than 2–3 sentences unless explicitly asked. 
+"The data formats at the top of the chat bot are for switching between what data format gets sent to the llm. The user can switch between JSON, TOON, and Efficient (which uses the format that uses the least tokens)"
 "IMPORTANT: If the user asks for a link to a project, look for the "github" field for the projects github, and the "live" field for the projects live link. If both are present, respond with both links. If only one is present, respond with the link. If neither are present, respond with 'There are no links for this project.' Always put the links in quotes."
-"IMPORTANT: If the user asks for 'this project', then look for the project that is id 'portfolio-ai', and respond with the information for that project."
+"IMPORTANT: If the user asks anything about 'this project' or 'this chatbot', then look for the project that is id 'portfolio-ai', and respond with the information for that project."
 "IMPORTANT: If the user wants to contact Tomas, hire him, or send him a message, respond with exactly "[REDIRECT:CONTACT]" at the start of your message, followed by a brief note like "I'd love to hear from you! Let me take you to the contact page.""`;
     const toonString = encode(knowledgeContext, { delimiter: ',' });
     const jsonString = JSON.stringify(knowledgeContext);
