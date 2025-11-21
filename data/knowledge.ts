@@ -365,12 +365,12 @@ export const knowledge =
       {
         "id": "portfolio-ai",
         "title": "AI-Powered Portfolio",
-        "tech": ["Next.js", "Strapi CMS", "Lite-RAG", "TOON Format", "HuggingFace/OpenAI"],
+        "tech": ["Next.js", "Strapi CMS", "Lite-RAG", "TOON Format", "Groq"],
         "summary": "A fully interactive portfolio featuring an AI assistant powered by Lite-RAG retrieval and token-efficient TOON data representation.",
         "ai-explenation": "I made this chatbot by carefully weighing the pros and cons of using an API AI vs hosting a hugging facemodel on cloud. I looked at the cost of all the different options, and found that groq API would be the most cost effective and efficient option for this project. I then created a chatbot that uses the Lite-RAG system to retrieve the data from a json file. I chose this because using a vector data base would be over kill for this project. I then experimented with the new TOON format to minimize the cost of tokens being spent. I found that for this specific file, JSON was slightly more cost effective. However under different data sets, TOON could be more cost effective.",
         "type": "Web Application",
         "github": "https://github.com/tomasGonz67/nextJS-WordpressPortfolio",
-        "live": "https://portfolio-beige-ten-56.vercel.app"
+        "live": "https://tomas-gonzalez-aiportfolio.vercel.app"
       },
       {
         "id": "hexo-blog",
