@@ -28,6 +28,7 @@ type About = {
 
 type AboutProps = {
   about: About | null;
+  isChatExpanded?: boolean;
 };
 
 export async function getStaticProps() {
