@@ -8,7 +8,11 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-export default function Contact() {
+type ContactProps = {
+  isChatExpanded?: boolean;
+};
+
+export default function Contact({ isChatExpanded }: ContactProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -60,7 +64,7 @@ export default function Contact() {
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <Navbar />
+      <Navbar isChatExpanded={isChatExpanded} />
       
       <main className="w-full max-w-2xl">
         <h1 className="text-5xl font-bold text-gray-300 underline text-center mb-10">Contact Me</h1>

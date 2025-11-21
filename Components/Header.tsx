@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function Navbar(){
+type NavbarProps = {
+    isChatExpanded?: boolean;
+};
+
+export default function Navbar({ isChatExpanded = false }: NavbarProps){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrollHidden, setScrollHidden] = useState(false);
 
@@ -22,12 +26,13 @@ export default function Navbar(){
         <header className='from-gray-900 to-black text-white w-full p-4 border-b border-gray-800 '>
             <nav className="relative flex items-center justify-center">
                 {/* Mobile menu button with hamburger icon */}
-                <div className="md:hidden absolute left-4 top-1/2 transform -translate-y-1/2 z-50">
-                    <button
-                        onClick={() => handleFunctions(!isMenuOpen)}
-                        className="p-2 text-white hover:bg-gray-700 rounded-md transition-colors"
-                        aria-label="Toggle menu"
-                    >
+                {!isChatExpanded && (
+                  <div className="md:hidden absolute left-4 top-1/2 transform -translate-y-1/2 z-50">
+                      <button
+                          onClick={() => handleFunctions(!isMenuOpen)}
+                          className="p-2 text-white hover:bg-gray-700 rounded-md transition-colors"
+                          aria-label="Toggle menu"
+                      >
                         <svg 
                             className="w-6 h-6" 
                             fill="none" 
@@ -54,7 +59,8 @@ export default function Navbar(){
                             )}
                         </svg>
                     </button>
-                </div>
+                  </div>
+                )}
 
                 {/* Full screen mobile menu overlay */}
                 {isMenuOpen && (

@@ -32,6 +32,7 @@ type Project = {
 
 type HomeProps = {
   projects: Project[];
+  isChatExpanded?: boolean;
 };
 
 export async function getStaticProps() {
@@ -45,12 +46,12 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ projects }: HomeProps) {
+export default function Home({ projects, isChatExpanded }: HomeProps) {
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-4 sm:p-8 pb-20 gap-8 sm:gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <Navbar/>
+      <Navbar isChatExpanded={isChatExpanded} />
 
       <main className="w-full max-w-lg mx-auto px-4 sm:px-0">
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-300 underline text-center mb-6 sm:mb-10">Portfolio</h1>
