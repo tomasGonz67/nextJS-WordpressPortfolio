@@ -3,26 +3,32 @@ export const knowledge =
   {
     "personalInfo": {
       "name": "Tomas Gonzalez",
-      "role": "Engineer",
-      "location": "New Jersey, USA"
+      "role": "Full-Stack Software Engineer",
+      "location": "New Jersey, USA",
+      "github": "https://github.com/tomasGonz67",
+      "jobStatus": "Actively looking for work",
+      "targetRole": "Full-Stack Engineer, Backend Engineer, Software Engineer, or DevOps/Cloud Engineer — open to any tech role that leverages strong backend, infrastructure, security, or AI/ML skills",
+      "workPreference": "Fully open — remote, hybrid, in-person, out of state. No restrictions.",
+      "companyPreference": "Open to any company size or type — startups, mid-size, or large tech. Thrives in fast-moving environments but adapts to any team structure."
     },
     "strength-of-skills": {
       "strong": [
         "AI/ML",
         "Cloud Infrastructure",
         "DevOps",
-        "Backend Development"
+        "Backend Development",
+        "Security",
+        "Full-Stack Development"
       ],
       "moderate": [
         "Frontend Development",
         "Networking",
         "Databases",
         "Mobile Development",
-        "Quality Assurance"
-
+        "Quality Assurance",
+        "Real-Time Systems (WebSockets)"
       ],
       "less_strong": [
-        "Security",
         "Blockchain/Web3",
         "UI/UX Design",
       ]
@@ -62,12 +68,16 @@ export const knowledge =
         "Next.js",
         "Express.js",
         "Node.js",
+        "Socket.io",
         "OpenAI API",
         "MongoDB Compass",
         "Playwright",
         "Hexo",
         "Tailwind CSS",
-        "Nodemailer"
+        "Nodemailer",
+        "Zustand",
+        "Supertest",
+        "Jest"
       ],
       "ai_ml": [
         "InsightFace",
@@ -102,7 +112,9 @@ export const knowledge =
         "Load Balancers",
         "Private Networking",
         "IAM Security",
-
+        "DigitalOcean Droplets",
+        "Let's Encrypt SSL",
+        "Docker Compose",
       ],
       "networking": [
         "DNS",
@@ -151,10 +163,68 @@ export const knowledge =
     },
     "workExperience": [
       {
-        "company": "Cadooga (Startup)",
-        "role": "Engineering Lead / Founding Engineer",
-        "start": "2025-06-04",
+        "company": "Eleutheria",
+        "role": "Creator / Solo Developer",
+        "start": "2025-12-01",
         "end": "Present",
+        "live": "https://eleutheria.lol",
+        "responsibilities": {
+          "summary": "Designed, developed, and shipped a full-stack anonymous community platform from scratch — solo. Live at eleutheria.lol.",
+          "features": [
+            "Forums with threaded comments and nested replies",
+            "Real-time group chatrooms via WebSockets (Socket.io)",
+            "Random 1-on-1 anonymous chat matching",
+            "Planned/private 1-on-1 direct messaging",
+            "Session-based anonymous identity with Greek-themed usernames and discriminators — no sign-up required",
+            "Like/dislike reactions on posts",
+            "User and content reporting system",
+            "Notification system for replies and chat requests"
+          ],
+          "security": [
+            "Parameterized queries everywhere — no SQL injection surface",
+            "SameSite strict + HttpOnly + Secure cookies for CSRF and XSS protection",
+            "Multi-layer rate limiting (IP + session) across all endpoints",
+            "50KB body size limit to prevent JSON-bomb DoS",
+            "Row-level locking (FOR UPDATE SKIP LOCKED) to prevent race conditions in concurrent user matching",
+            "Dedicated security test suite covering auth bypass, IDOR, SQL injection, oversized payloads, rate limiting",
+            "Pen tested across 8 attack categories — all passed",
+            "GDPR/CCPA/ECPA-compliant data retention with automated background jobs",
+            "Cookie consent banner — Google Analytics only loads with explicit user consent"
+          ],
+          "devops": [
+            "Containerized with Docker Compose — identical setup across dev, staging, and prod",
+            "Deployed to DigitalOcean behind Traefik reverse proxy with Let's Encrypt SSL auto-renewal",
+            "GitHub Actions CI/CD pipeline: tests → build → push to Docker Hub → auto-deploy to staging",
+            "Separate staging and production environments",
+            "DigitalOcean monitoring alerts (CPU + disk), UptimeRobot external uptime checks",
+            "Google Analytics with GDPR-compliant consent banner"
+          ],
+          "tech_stack": [
+            "Next.js",
+            "TypeScript",
+            "React",
+            "Tailwind CSS",
+            "Zustand",
+            "Express.js",
+            "Socket.io",
+            "PostgreSQL",
+            "Docker",
+            "Docker Compose",
+            "Traefik",
+            "GitHub Actions",
+            "DigitalOcean",
+            "Let's Encrypt",
+            "Jest",
+            "Supertest"
+          ]
+        }
+      },
+      {
+        "company": "Cadooga (Startup)",
+        "role": "Full Stack Engineer Lead → Full Stack Engineer",
+        "note": "Started as Full Stack Engineer Lead (founding team). After company-wide layoffs reduced the team, continued as Full Stack Engineer until April 2026.",
+        "start": "2025-06-04",
+        "end": "2026-04-01",
         "responsibilities": {
           "ai": [
             "Architected and deployed an end-to-end AI-powered MVP integrating reverse image search, computer vision, automation, and scalable backend services",
@@ -168,20 +238,19 @@ export const knowledge =
           "cloud_infrastructure_and_networking": [
             "Architected, deployed, and managed AWS infrastructure including VPCs, EC2 instances, subnets, routing tables, NAT gateways, and load balancers",
             "Designed secure private networking environments and enforced strict IAM policies and port restrictions",
-            "Built a serverless ETL pipeline using AWS Glue to migrate more than 120 GB of data from an external S3 bucket into internal systems",
-            "Internalized and refactored an external vendor-managed backend system to improve cost efficiency, reliability, and performance"
+            "Built a serverless ETL pipeline using AWS Glue to migrate 128 GB of data from an external S3 bucket into internal systems"
           ],
           "leadership": [
             "Translated CEO-level product goals into actionable engineering plans and scalable architecture",
-            "Recruited and hired a small, high-performing engineering team emphasizing collaboration and code quality",
-            "Mentored developers on cloud infrastructure, Docker, architectural patterns, and best engineering practices",
+            "Recruited and hired an engineer, growing the technical team while maintaining high standards for code quality and collaboration",
+            "Mentored the engineer on cloud infrastructure, Docker, architectural patterns, and best engineering practices",
             "Conducted code reviews, architecture walkthroughs, and infrastructure sessions to ensure internal consistency",
             "Initiated internal restructuring and processes including Jira task management, QA/testing protocols, structural/positioning and team standups"
           ],
           "development": [
-            "Built automated Playwright-based workflows for an arrest search system to collect data from multiple state-level sources to ensure business needs while avoiding legal issues.",
-            "Implemented backend logic in ExpressJS with a structured SQL database for accurate, high-performance record ingestion and retrieval for the sex offender search system.",
-            "implemented frontend logic in React Native to create a user friendly interface for the arrest search system.",
+            "Built automated Playwright-based workflows for a public records search system to collect data across all 50 U.S. states while navigating legal constraints.",
+            "Implemented backend logic in ExpressJS with a structured SQL database for accurate, high-performance record ingestion and retrieval for a public records search system.",
+            "Implemented frontend logic in React Native to create a user-friendly interface for the public records search system.",
           ],
           "cross_functional": [
             "Collaborated with leadership to define technical roadmaps, budgets, timelines, and launch strategy",
@@ -213,42 +282,30 @@ export const knowledge =
         "company": "TheoForge (Startup)",
         "role": "Full-Stack / DevOps Engineer",
         "start": "2024-12-01",
-        "end": "2025-06-30",
+        "end": "2025-05-30",
         "responsibilities": {
           "AI/ML": [
-            "First exposure to vector databases by setting up Qdrant container.",
-            "First exposure to AI model training and knowledge graph integration."
+            "Deployed and configured Qdrant vector database container — first hands-on experience with vector search infrastructure",
+            "Worked on AI model training pipelines and knowledge graph integration"
           ],
           "devops": [
-            "Handled a wide range of DevOps tasks including environment setup, workflow automation, and deployment processes",
-            "Wrote and maintained YAML-based configurations for CI/CD pipelines and internal automation tools",
-            "Collaborated with senior engineers to ensure deployments followed best practices for reliability and consistency",
-            "Improved internal tooling and pipelines to increase development speed and reduce manual overhead"
+            "Wrote and maintained YAML-based CI/CD pipeline configurations and internal automation tooling",
+            "Managed environment setup, deployment processes, and workflow automation across dev and production",
+            "Identified and resolved pipeline inefficiencies, reducing manual overhead and improving deployment speed"
           ],
           "cloud_infrastructure": [
-            "Worked on cloud infrastructure components with a focus on scalability, maintainability, and cost-efficiency",
-            "Maintained and updated cloud resources while ensuring environments stayed stable and production-ready",
-            "Assisted with provisioning, troubleshooting, and optimizing infrastructure components under guidance from senior engineers"
+            "Provisioned, maintained, and troubleshot cloud infrastructure with a focus on stability and production-readiness",
+            "Optimized cloud resources for scalability and cost-efficiency"
           ],
           "backend_development": [
-            "Created original backend API using Python, Jinja, and FastAPI to support core application features",
-            "Contributed to API development, data processing workflows, and backend performance improvements",
-            "Followed strong software engineering practices including modular design, clean interfaces, and thorough testing",
-            "Debugged backend issues and provided solutions to ensure the application is running smoothly.",
-          ],
-          "frontend_development": [
-            "Reviewed frontend code and provided feedback to ensure consistency and maintainability.",
-            "Debugged frontend issues and provided solutions to ensure the application is running smoothly.",
-          ],
-          "process_and_engineering_practices": [
-            "Followed established engineering standards to ensure high-quality, maintainable, and production-ready code",
-            "Contributed to documentation and internal guides to support team onboarding and system understanding",
-            "Participated in code reviews, incorporating best practices emphasized by senior-level mentors"
+            "Built original backend API from scratch using Python, Jinja, and FastAPI",
+            "Owned API development, data processing workflows, and backend performance improvements",
+            "Debugged and resolved backend issues independently to keep the application stable"
           ],
           "leadership": [
-            "Reviewed work from junior developers and provided actionable feedback to help maintain code quality and alignment with engineering standards",
-            "Demonstrated independence and self-direction by regularly solving problems without direct supervision",
-            "Earned consistent positive recognition from senior engineers with over 10 years of experience"
+            "Reviewed junior developer work and delivered actionable feedback to maintain code quality",
+            "Operated independently — consistently solved problems without direct supervision",
+            "Received consistent positive recognition from senior engineers with 10+ years of experience"
           ],
           "tech_stack": [
             "Python",
@@ -294,10 +351,84 @@ export const knowledge =
     ],
     "projects": [
       {
-        "id": "current-project",
-        "title": "Current Project - Card Game",
-        "tech": ["React Native", "AWS", "socket.io"],
-        "summary": "My current side project is a real time multiplayer card game that will allow users to play with each other in real time. I plan on uploading this to the app store once it is completed.",
+        "id": "eleutheria",
+        "title": "Eleutheria",
+        "tech": ["Next.js", "TypeScript", "React", "Tailwind CSS", "Zustand", "Express.js", "Socket.io", "PostgreSQL", "Docker", "Docker Compose", "Traefik", "Let's Encrypt", "GitHub Actions", "DigitalOcean", "Jest", "Supertest", "Google Analytics"],
+        "type": "Full-Stack Web Application — Live Production",
+        "github": "https://github.com/tomasGonz67/eleutheria",
+        "live": "https://eleutheria.lol",
+        "summary": "Eleutheria is my strongest and most complete project — a full-stack anonymous community platform designed, built, and deployed entirely solo from scratch. It is live in production at eleutheria.lol with real users.",
+        "architecture": "Next.js frontend (SSR + SSG) communicates with an Express.js backend via REST API and Socket.io for real-time features. PostgreSQL handles persistence. Traefik acts as reverse proxy with path-based routing — /api/* and /socket.io/* go to the backend, everything else to the frontend. All running in Docker Compose on separate DigitalOcean staging and production droplets.",
+        "features": [
+          "Forums with threaded nested comments and recursive comment count queries",
+          "Global Feed aggregating posts across all forums",
+          "Real-time group chatrooms via WebSockets (Socket.io) with per-socket rate limiting",
+          "Random 1-on-1 anonymous chat matching with row-level locking (FOR UPDATE SKIP LOCKED) to prevent race conditions",
+          "Planned/private 1-on-1 direct messaging with floating minimized chat windows",
+          "Session-based anonymous identity: Greek-themed username + 8-character discriminator, no sign-up required",
+          "Like/dislike reactions on posts",
+          "User and content reporting system with report queue",
+          "Notification system for replies and incoming chat requests",
+          "Smart notification suppression — no ping if user is already in that chat (focusedSessions)",
+          "Multi-tab awareness — userSockets map tracks all open tabs per user",
+          "Background session expiration job — handles tab crashes and network drops client-side can't cover",
+          "Contact form with rate limiting",
+          "Cookie consent banner — Google Analytics only loads with explicit user consent (GDPR compliant)"
+        ],
+        "security": [
+          "Parameterized queries everywhere — zero SQL injection surface, pen tested and confirmed",
+          "SameSite: strict + HttpOnly + Secure cookies — CSRF and XSS protection",
+          "Multi-layer rate limiting: global IP limiter, per-session message limiter, per-socket Socket.io limiter, contact form limiter",
+          "50KB body size limit on all endpoints — prevents JSON-bomb DoS attacks",
+          "Row-level locking (FOR UPDATE SKIP LOCKED) — prevents double-matching race conditions under concurrent load",
+          "IDOR protection — all private chat endpoints verify the requesting user is a participant",
+          "Global error handler returns clean JSON — no stack traces or internal errors leaked to clients",
+          "No sensitive data (session tokens, etc.) in console logs",
+          "Dedicated security test suite: auth bypass, IDOR, SQL injection, oversized payloads, rate limiting — 24 automated tests",
+          "Pen tested on staging across 8 attack categories (SQL injection, XSS, auth bypass, cookie manipulation, rate limiting, Socket.io abuse, IDOR, oversized payloads) — all passed",
+          "GDPR/CCPA/ECPA-compliant data retention: automated background jobs purge user data on schedule while preserving reported content and law enforcement holds",
+          "IP address and browser fingerprint tracking for moderation and ban evasion resistance"
+        ],
+        "devops_and_infrastructure": [
+          "Fully containerized with Docker Compose — identical stack across development, staging, and production",
+          "Traefik reverse proxy handles SSL termination, HTTP to HTTPS redirect, and path-based routing with explicit priority rules",
+          "Let's Encrypt SSL with automatic cert issuance and renewal — zero manual cert management",
+          "Separate staging (68.183.50.71) and production (68.183.147.95 / eleutheria.lol) DigitalOcean droplets",
+          "GitHub Actions CI/CD pipeline on the staging branch: runs full Jest test suite, then builds linux/amd64 Docker images, pushes to Docker Hub, SSHes into staging and deploys automatically — deploy is gated on tests passing",
+          "Automated disk pruning after every deploy (docker system prune)",
+          "DigitalOcean built-in monitoring with alerts for CPU and disk above 80% for 5+ minutes",
+          "UptimeRobot external uptime monitoring — pings every 5 minutes, emails on downtime",
+          "Google Analytics with GDPR-compliant consent banner",
+          "Google Search Console verified and sitemap submitted for SEO indexing",
+          "Cross-platform Docker builds using docker buildx for Apple Silicon to linux/amd64 deployment"
+        ],
+        "database_design": [
+          "PostgreSQL with migration-based schema management — numbered idempotent SQL files",
+          "withTransaction pattern with proper rollback used for all multi-step writes",
+          "FOR UPDATE SKIP LOCKED for concurrent matching without double-booking",
+          "Soft deletes with automated hard-delete retention jobs (30 days for posts, 180 days for messages)",
+          "Recursive CTEs for threaded comment count aggregation",
+          "OFFSET/LIMIT pagination across all list endpoints",
+          "Session rolling — last_seen debounced to avoid write amplification",
+          "IP change logging and browser fingerprint snapshots for moderation"
+        ],
+        "testing": [
+          "Jest + Supertest for all backend API tests",
+          "socket.io-client for real-time Socket.io integration tests",
+          "Dedicated security.test.js: 24 tests covering auth bypass, IDOR, SQL injection, oversized payloads, rate limiting",
+          "Tests run in CI pipeline — deploy is blocked if any test fails",
+          "--forceExit flag handles retention job setInterval cleanup",
+          "Postgres service container in GitHub Actions for realistic test environment",
+          "Migrations run automatically in CI before tests"
+        ],
+        "legal_and_compliance": [
+          "Internal legal policy document covering ECPA, FOSTA-SESTA, NCMEC CSAM reporting (18 U.S.C. § 2258A), GDPR, and CCPA",
+          "Data retention schedule: soft-deleted posts 30 days, private messages 180 days, IP/fingerprint 180 days after last activity",
+          "Reported content retained indefinitely until resolved",
+          "Law enforcement holds managed manually until legal_hold flag is implemented",
+          "Age verification (18+) stated in Terms of Service",
+          "Privacy policy explicitly covers Google Analytics consent and data collection"
+        ]
       },
       {
         "id": "ai-image-generation",
@@ -386,11 +517,12 @@ export const knowledge =
         "title": "Wordpress E-Commerce Project",
         "tech": ["Wordpress", "WooCommerce", "PHP"],
         "summary": "A complete e-commerce web app featuring product storage, search, and WooCommerce payment integration.",
-        "type": "WordPress"
+        "type": "WordPress",
+        "note": "No live link — site is no longer hosted."
       },
       {
         "id": "fantasy-ufc-app",
-        "title": "",
+        "title": "Fantasy UFC App",
         "tech": ["RabbitMQ", "PHP", "SQL", "HTML", "CSS", "JavaScript, NAGIOS"],
         "summary": "A full stack IT project that uses API's to get data and display it in a user friendly way, stores the data in a database for caching, monitors with NAGIOS, and has real user interaction with the data and database.",
         "type": "Full-Stack Web App",
@@ -401,9 +533,7 @@ export const knowledge =
         "id": "Holistic-Hands-App",
         "title": "Holistic Hands App",
         "tech": ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "FTPS"],
-        "summary": "A Holistic Hands App uses a MySQL database to store user information and a PHP backend to handle the database operations. Used FTPS to transfer files to the webserver.",
-        "github": "",
-        "live": ""
+        "summary": "A Holistic Hands App uses a MySQL database to store user information and a PHP backend to handle the database operations. Used FTPS to transfer files to the webserver."
       },
       {
         "id": "game-of-games",
