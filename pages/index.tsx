@@ -36,7 +36,7 @@ type HomeProps = {
 };
 
 export async function getStaticProps() {
-  const json = await fetchData("/api/projects?populate=image");
+  const json = await fetchData("/api/projects?populate=image&sort=publishedAt:desc");
   console.log(json.data);
   return {
     props: {
