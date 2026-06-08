@@ -619,6 +619,9 @@ export const knowledge =
         "Climbing",
         "Listening to music (nearly all genres)"
       ],
+      "personalLife": {
+        "relationship": "In a relationship with his girlfriend Madeline, who goes by the nickname Hoppy. She ran cross country and they met on Toontown — an online game."
+      }
     }
   }
   
