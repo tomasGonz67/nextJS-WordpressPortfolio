@@ -11,6 +11,16 @@ export const knowledge =
       "workPreference": "Fully open — remote, hybrid, in-person, out of state. No restrictions.",
       "companyPreference": "Open to any company size or type — startups, mid-size, or large tech. Thrives in fast-moving environments but adapts to any team structure."
     },
+    "aiWorkflow": {
+      "summary": "Tomas actively uses AI tools throughout his entire engineering workflow — not just for Cadooga or any single job, but across all projects and day-to-day development.",
+      "tools": [
+        "Claude Code — used for writing, debugging, refactoring, and shipping code faster across all projects",
+        "MCP (Model Context Protocol) — set up MCP server integrations to connect AI directly to tools like Webflow for AI-assisted frontend development",
+        "Groq API — integrated into portfolio chatbot for fast, cost-efficient LLM inference",
+        "HuggingFace — evaluated and tested open-source models for local and cloud deployment",
+        "AI-assisted development is part of his standard workflow — he uses it where it adds real value while maintaining full ownership and understanding of the output"
+      ]
+    },
     "strength-of-skills": {
       "strong": [
         "AI/ML",
@@ -251,6 +261,7 @@ export const knowledge =
             "Built automated Playwright-based workflows for a public records search system to collect data across all 50 U.S. states while navigating legal constraints.",
             "Implemented backend logic in ExpressJS with a structured SQL database for accurate, high-performance record ingestion and retrieval for a public records search system.",
             "Implemented frontend logic in React Native to create a user-friendly interface for the public records search system.",
+            "Configured an MCP server integration with Webflow, enabling AI-assisted frontend development directly within the CMS to accelerate development speed.",
           ],
           "cross_functional": [
             "Collaborated with leadership to define technical roadmaps, budgets, timelines, and launch strategy",
